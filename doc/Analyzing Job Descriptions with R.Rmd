@@ -1,0 +1,471 @@
+---
+title: "Analyzing Job Descriptions with R"
+author:
+
+  - Ahmad Nakib
+  - Fernando Delgado
+  - Nour Azar
+
+output:
+  html_document:
+    theme: cerulean
+    toc: true
+    toc_float: true
+---
+
+```{r setup, echo = FALSE, include = FALSE}
+knitr::opts_knit$set(root.dir = 'C:/Users/fdelgado/OneDrive - IESEG/Documents/01. IESEG/12. Social Media Analytics/Group Project')
+
+for (i in c('dplyr','tidytext','tidyverse','data.table')){
+  if (!require(i, character.only=TRUE)) install.packages(i, repos = "http://cran.us.r-project.org")
+  require(i, character.only=TRUE)
+}
+for (i in c('ggplot2','scales','maps','maptools','ggmap')){
+  if (!require(i, character.only=TRUE)) install.packages(i, repos = "http://cran.us.r-project.org")
+  require(i, character.only=TRUE)
+}
+for (i in c('SnowballC','slam','tm','Matrix', 'hunspell','purrr', 'openNLP', 'NLP', 'wordcloud', 'udpipe', 'textrank')){
+  if (!require(i, character.only=TRUE)) install.packages(i, repos = "http://cran.us.r-project.org")
+  require(i, character.only=TRUE)
+}
+
+library(knitr)
+
+```
+
+## Introduction
+
+As a team of aspiring data scientists, we think that the key for a good text analysis is extracting the data in the cleanest way as possible, to obtain the best  and most precise results. The goal of this project is the extraction of relevant information from a text database. Particularly, we want to obtain the technical skills, positions, location and company for each document in a job description database.  
+
+## Loading the Data 
+
+We worked with a dataset of 1911 unique job descriptions extracted from CVs. First, we load them into R and assign a unique ID to each one of them.
+We export it as a .csv and get ready to extract our relevant information.  
+
+It is important to mention that as we were working with the project, we realized that we needed different pre-processing steps depending on the keywords we were trying to extract, so in order to hold a good organization, we divided our code into 6 different files, described in the following sections of the report. 
+
+## 1 - Extracting Locations 
+
+For this section of the project, we tried different approaches and played around with several R packages. Our first approach was using NLP, openNLP, and/or Google NLP to extract relevant locations from each document. However, we realized that most of the pre-built functions within each NLP library wouldn’t lead to a good result. We would have variations of results from country states (“AZ” or “CA”), city names (“New York”) and other words that didn’t represent actual locations (“Ajax”, “lake”). Furthermore, we also noticed that a great portion of our database described locations in the first sentence, and with a state code in capital letters, such as “CA” for California.  
+
+With this in mind, and realizing that most of our dataset appears to be within the US, we decide to create a dictionary of USA state abbreviations with their respective latitude and longitude I an attempt to extract it in case there is a match in the string.  
+
+
+### Cleaning Data
+
+Before we begin with anything, we perform a standard data cleaning to remove unwanted symbols, trailing whitespaces, and change some words from “dr.” to doctor” to make the tokenization as smooth as possible. For this case, we don’t change our text to lowercase because we want to match the state codes written in caps.  
+
+```{r eval=FALSE}
+
+#Remove some acronyms that are identified as sentence stoppers
+Jobs$job <- gsub("sr.", "senior", Jobs$job, fixed = TRUE)
+Jobs$job <- gsub("Sr.", "senior", Jobs$job, fixed = TRUE)
+Jobs$job <- gsub("SR.", "senior", Jobs$job, fixed = TRUE)
+Jobs$job <- gsub("dr.", "doctor", Jobs$job, fixed = TRUE)
+Jobs$job <- gsub("Dr.", "doctor", Jobs$job, fixed = TRUE)
+Jobs$job <- gsub("DR.", "doctor", Jobs$job, fixed = TRUE)
+
+#removes trailing whitespace
+Jobs$job <- gsub("\\s+"," ",Jobs$job)
+
+#Here we dont set to lowercase beacause we need the capital letters from the State acronyms.
+
+```
+
+### Extracting Locations
+
+Then, we introduce our state abbreviation dictionary into R
+
+```{r echo=FALSE}
+
+
+location_dict <- fread("./data/raw/statedictionary.csv")
+
+table1 <- head(location_dict)
+
+knitr::kable(table1, col.names = gsub("[.]", " ", names(table1)))
+
+```
+
+
+Following, we create a loop to check each string within our database and try to match with the state abbreviation. If there is a match, then it is added to our Jobs main dataset:
+
+```{r eval=FALSE}
+
+#Extracting states 
+ 
+for (i in 1:length(Jobs$job)){    
+  #split the text by space  
+  split <- strsplit(Jobs$job[i]," ")[[1]]     
+  #comparing split with the state abbreviation   
+  state <- match(split, stateabbreviation$Abbreviation)    
+  #if it matches, get the position of each state  
+  state <- which(!is.na(state))    
+  #extract the state based on the position  
+  state_split <- split[state]    
+  #adding states to the new column   
+  Jobs$state[i] <- state_split[1]  
+}
+
+```
+
+Then, we also extract the city, which is usually 1 word before the state inside the text (“Chicago, IL”, for example):
+
+```{r eval=FALSE}
+
+head(Jobs_locations)
+
+```
+
+```{r echo=FALSE}
+
+
+Jobs_locations <- fread("./data/final/Jobs_locations.csv")
+Jobs_locations <- subset(Jobs_locations, select = -V1)
+
+table1 <- head(Jobs_locations)
+
+knitr::kable(table1, col.names = gsub("[.]", " ", names(table1)))
+
+```
+
+
+### Visualization
+Finally, we plot our results for a better visualization:
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+Jobs <- fread("./data/final/Jobs_locations.csv")
+state_count<-table(Jobs$state)
+state_count<-as.data.frame(state_count)
+ggplot(state_count, 
+       aes(x = as.character(state_count$Var1), 
+           y = state_count$Freq)) + geom_bar(stat="identity") + theme(axis.text.x = element_text(angle = 60, vjust = )) + labs(y = "Frequency", x= "States")
+
+locationfreq <- fread("./data/final/locationfreq.csv")
+usa <- map_data("usa") 
+mapplot <- ggplot() + geom_polygon(data = usa, aes(x=long, y = lat, group = group)) +
+  coord_fixed(1.3)
+mapplot + geom_point(data = locationfreq, aes(x = long, y = lat, size = Count), color = "red")
+```
+
+As a final result, we still have `r sum(is.na(Jobs$state))` NA values for states, but it is still much better and precise than our first attempts using other NLP techniques. We can easily observe that California and New York are the states with largest population of our dataset. 
+
+## 2 - Extracting Positions
+
+Moving forward, we take onto the positions.
+
+
+### Cleaning Data
+
+The only different pre-processing steps taken here is that we set our text to lowercase for a better tokenization, given that we don’t need any words capitalized anymore. 
+
+
+
+```{r eval=FALSE}
+
+#set to lowercase
+Jobs$job <- tolower(Jobs$job)
+
+```
+
+### Tokenization
+
+With the help of tidytext’s unnest_tokens, we tokenize everything into sentences and extract the first sentence of each document. The reasoning behind extracting only the first sentence is that usually the position description is located at the very beginning of the document. 
+
+```{r eval=FALSE}
+
+#===============================================================================
+# Tokenization Test
+#===============================================================================
+
+#Tokenize into sentences
+test_sentences <- Jobs %>%
+  unnest_tokens(sentences, job, token = 'sentences')
+
+#Take only first sentence
+first_sentence <-
+  test_sentences %>% 
+  group_by(id) %>% 
+  filter(row_number()==1)
+
+```
+
+
+### POS tag
+
+Then, we decide to make a POeS tag of the first sentence of each document, in order to identify all the relevant nouns. To do this, we use the package udmodel:
+
+```{r eval=FALSE}
+
+udmodel <- udpipe_download_model(language = "english")
+udmodel <- udpipe_load_model(file = udmodel$file_model)
+
+#Extract Nouns from the first sentence of all documents
+Nouns <- NULL
+
+for(i in 1:nrow(first_sentence)){
+  tmp <- first_sentence$sentences[i]
+  print(i)
+  
+  #fit model to extract POS and set as data frame
+  x <- udpipe_annotate(udmodel, tmp)
+  x <- as.data.frame(x)
+  x %>% select(token, upos)
+  
+  #Subset Nouns and compounds
+  x <- subset(x, x['upos'] == "NOUN" & x['dep_rel'] =="compound")
+  x <- subset(x, select = c(doc_id, token))
+  
+  #rbind into dataframe
+  Nouns <- rbind(Nouns, x)
+}
+
+
+#Create a Noun frequency dataframe
+nounfreq <- Nouns %>% group_by(token) %>%
+  summarize(Count = n())
+
+#subset those repeated at least 10 times
+nounfreq <- subset(nounfreq, nounfreq['Count'] > 9 )
+
+```
+
+
+
+### Extracting Positions
+
+Our result is a table of nouns, but as you may imagine, it is not very clean. In consequence we decided to create a frequency table to identify the most repeated nouns and subset only those repeated at least 10 times. 
+Then, we manually clean out those nouns that don’t make any sense and create a dictionary of positions. The idea is to run a similar code to extract each position by id. 
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+positionfreq <- fread("./data/final/positionfreq.csv")
+positionfreq <- subset(positionfreq, select = -V1)
+
+table1 <- head(positionfreq)
+
+knitr::kable(table1, col.names = gsub("[.]", " ", names(table1)))
+
+```
+
+### Visualization
+
+Finally, we create a frequency plot for an easier visualization of our results:
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+positionfreq <- fread("./data/final/positionfreq.csv")
+positionfreq <- subset(positionfreq, select = -V1)
+
+#plot
+ggplot(positionfreq, 
+       aes(x = as.character(positionfreq$position), 
+           y = positionfreq$Count)) + geom_bar(stat="identity") + theme(axis.text.x = element_text(angle = 60, vjust = )) + labs(y = "Frequency", x= "Position")
+
+```
+
+## 3 - Extracting Technical Skills
+
+This was the hardest part of the data extraction since extracting words like “Java”  or “AWS” is harder than something more standard such as a location. However, from extracting our positions we identified that we can also extract technical skills by nouns. So, with the same noun frequency table we generated before, we create a dictionary with 95 most commonly identified skills as nouns. 
+
+
+### Visualization of Top Skills 
+
+With this information, we then visualize the top 20 most frequent skills in our database:
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+skills_dict <- fread("./data/processed/skillsfreq.csv")
+skills_dict <- subset(skills_dict, select = -V1)
+skills_dict <- skills_dict %>%
+  arrange(desc(Count)) 
+
+top_skills <- head(skills_dict,20)
+ggplot(top_skills, 
+       aes(x = as.character(top_skills$token), 
+           y = top_skills$Count)) + geom_bar(stat="identity") + theme(axis.text.x = element_text(angle = 60, vjust = )) + labs(y = "Frequency", x= "Skill")
+
+```
+
+### Obtaining Skills by Id
+
+And following the same logic as other keywords, we match each skill string within our database and tag it with our document id every time there is a match. The result is a table of 95 columns (skills) with 1911 rows (Unique CVs). 
+
+
+```{r eval=FALSE}
+
+#For each skill find the skill name in each cv 1 if true, 0 if false
+
+#iterate through all skill names
+for (i in colnames(skills)){
+  #skip id column
+  if (i == 'id') {
+    next
+  }
+  else {
+    #iterate through all jobs
+    for (j in 1:nrow(Jobs)){
+    #split strings
+    split <- strsplit(Jobs$job[j]," ")[[1]]
+    #find match skill with string
+    skill <- match(split, i) 
+    #get position of match
+    skill <- which(!is.na(skill)) 
+    #if match is true, 1 - else 0
+    ifelse(!is.na(skill), skills[j,i] <- 1, skills[j,i] <- 0)
+    }
+  }
+}
+
+#Replace NAs with 0
+skills[is.na(skills)] <- 0
+
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+skills_by_id <- fread("./data/final/skills_by_id.csv")
+skills_by_id <- subset(skills_by_id, select = -V1)
+
+table1 <- head(skills_by_id)
+
+knitr::kable(table1, col.names = gsub("[.]", " ", names(table1)))
+
+```
+
+
+## 4 - Extracting Company Names
+
+As a last keyword, we extract the companies within our dataset. This wasn’t an easy task because most NLP’s would recognize some other words as organizations. For this step we tried a different approach. Since most organizations inside a CV are located within 3 words after the position keyword, we extracted the first 3 words after each position within our database:
+
+```{r eval=FALSE}
+
+#Extract the first 3 words after the position (loop 3 times)
+for (var in 1:3) {
+  
+  #iterate through all database
+  for (i in 1:length(Jobs$job)){    
+    
+    #split the text by space  
+    split <- strsplit(Jobs$job[i]," ")[[1]]     
+    
+    #comparing split with the position token  
+    company <- match(split, position_dict$token) 
+    
+    #if it matches, get the first word after position  
+    company <- which(!is.na(company))+ var 
+    
+    #extract the position of the word
+    company_split <- split[company] 
+    
+    #adding states to the new column   
+    Jobs$company_1[i] <- company_split[1]  
+  }
+}
+
+#Replace NAs with 0
+skills[is.na(skills)] <- 0
+
+```
+
+With this we concatenate the extracted strings with a few conditions: 
+* If the second word is “of” we concatenate the next one (for example “Bank of America”)
+* If the second word is “-“ we only take the first word
+* else we take 2 words. 
+
+```{r eval=FALSE}
+
+#Iterate through all rows
+for(i in 1:nrow(Jobs)){
+  
+  #If its an "of"
+  ifelse(Jobs$company_2[i] == "of", 
+        
+         #Concat 3 words
+         Jobs$company[i] <- str_c(Jobs$company_1[i], " ", Jobs$company_2[i]," ", Jobs$company_3[i]), 
+         
+         #If its a "-"
+         ifelse(Jobs$company_2[i] =="-", 
+                
+                #Just take the first string
+                Jobs$company[i] <- Jobs$company_1[i],
+                
+                #Else, concat 2 strings
+                Jobs$company[i] <- str_c(Jobs$company_1[i]," ",Jobs$company_2[i])))
+}
+
+#Subset Company dictionary
+Company_dict <- subset(Jobs, select = c(id, company))
+
+#Create a frequency table 
+companyfreq <- Company_dict %>% group_by(company) %>%
+  summarize(Count = n())
+
+
+```
+
+
+### Visualization
+
+Furthermore, we create a frequency table and manually remove the mistakes and the strings that don’t make sense to create a dictionary. 
+With this in mind, we apply our same methodology and extract the companies that make a match with our dictionary by id. Then we, create a frequency plot:
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+companyfreq <- fread("./data/final/company_freq.csv")
+plot_companyfreq <- na.omit(companyfreq)
+plot_companyfreq <- plot_companyfreq %>%
+  arrange(desc(Count)) 
+top_companies <- head(plot_companyfreq,20)
+ggplot(top_companies, 
+       aes(x = as.character(top_companies$company_final), 
+           y = top_companies$Count)) + geom_bar(stat="identity") + theme(axis.text.x = element_text(angle = 60, vjust = )) + labs(y = "Frequency", x= "Company")
+```
+
+
+## 5 - Creating a Basetable
+
+As a last step, we merge all of our tables into one main basetable:
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+basetable <- fread("./data/final/basetable.csv")
+str(basetable)
+```
+
+We end up with a final basetable of `r nrow(basetable)` unique CV’s and `r ncol(basetable)` variables, where:
+* 1 is the unique document ID
+* 5 columns refer to the position, location and company
+* 95 columns for the technical skills. 
+
+## Conclusions
+
+It is very hard to extract the right words from datasets that are not standardized, but it is not impossible. As we didn’t have all of the background information of our dataset, we had to play around with it to figure out any patterns or things we could work around with. 
+Additionally, this project was a big challenge as we felt there was not enough information online or many R packages that could extract the things that we wanted to. The pre-built functions with Natural Language Processing and Named Entity Recognition are trained with similar dictionaries and show similar results. Therefore, we had to get creative and come with a solution of our own. 
+Moreover, keeping up with the organization of the document and utilizing different pre-processing steps for each different keyword was complicated. The project not only required an effort of figuring out how to extract the data, but also on how to work in an organized way as a team, without losing track of all of our tables and the data. 
+
+
+## Further Steps
+
+Another way of extracting the information we need is training the model to locate inside the job description the information that should be extracted. For example, we noticed that the position is located in the beginning of the job description, followed by the company name and the location, and by taking a sample from the job descriptions and labeling the position, the company name and the location we could train a model to get the desired output. However, in order for the model to be accurate, we would need to label a very large amount of job descriptions, and due to time constraints, this technique seemed impracticable. 
+
+## Additional Visualization
+
+You can acces our Shiny App here:
+[ShinyApp](https://github.com/fernandodsales/Analyzing_Job_Descriptions_With_R)
+
+And view our Github Project here:
+[Github](https://github.com/fernandodsales/Analyzing_Job_Descriptions_With_R)
+
+
+## References 
+Edmondson, M. (2020, April 19). Introduction to googleLanguageR. The Comprehensive R Archive Network. https://cran.r-project.org/web/packages/googleLanguageR/vignettes/setup.html
+
+Kewon, D. (2020, April 1). Extracting information from a text in 5 minutes using R Regex. Medium. https://towardsdatascience.com/extracting-information-from-a-text-in-5-minutes-using-r-regex-520a859590de
+
+R POS tagging and tokenizing in one go. (n.d.). Stack Overflow. https://stackoverflow.com/questions/51861346/r-pos-tagging-and-tokenizing-in-one-go
+
+(2018, April 3). An overview of keyword extraction techniques. R-bloggers. https://www.rbloggers.com/2018/04/an-overview-of-keyword-extraction-techniques/
+
+Wijffels, J. (2021, December 2). UDPipe natural language processing - Text annotation. The Comprehensive R Archive Network. https://cran.r-project.org/web/packages/udpipe/vignettes/udpipe-annotation.html
+
+
+
+
