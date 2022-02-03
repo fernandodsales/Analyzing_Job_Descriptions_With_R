@@ -1,0 +1,554 @@
+"","company_final","Count"
+"1","acenonyx",1
+"2","additive rocket",1
+"3","adp",1
+"4","agero, inc.",1
+"5","aig",11
+"6","airbus",1
+"7","allegion",1
+"8","amazon",24
+"9","anacle systems",1
+"10","aon hewitt",1
+"11","apex data",1
+"12","arizona state",3
+"13","arkansas dept.",1
+"14","ashima devices",2
+"15","assero services",1
+"16","assistant carnegie",2
+"17","assistant depaul",2
+"18","asu",18
+"19","at&t",1
+"20","atrium medical",1
+"21","automation engineer",3
+"22","avaya",1
+"23","aws cloudfront,",1
+"24","axillon group",2
+"25","backbonejs, nodejs",2
+"26","baker hughes",2
+"27","bank of america",12
+"28","barclays",3
+"29","bcbal responsible",1
+"30","bcbs",2
+"31","bedrockdata",2
+"32","best buy",1
+"33","bike shop",2
+"34","bloomberg",10
+"35","blue shield",4
+"36","boa marine",1
+"37","bofa",1
+"38","brigham young",2
+"39","broadcom",2
+"40","brocade communications",2
+"41","bts",2
+"42","bucknell university",2
+"43","byu international",1
+"44","bz robot",1
+"45","cablevision",2
+"46","caci provide",1
+"47","canoga perkins",1
+"48","careday",1
+"49","career experienes",1
+"50","catalina marketing",2
+"51","cavium llc",1
+"52","cbs interactive",2
+"53","cdi corporation",1
+"54","cem",41
+"55","center for",9
+"56","center research",1
+"57","central michigan",3
+"58","centurylink communications",1
+"59","cerner",3
+"60","characterization of lya",1
+"61","chevron",1
+"62","chicago mercantile",1
+"63","chief",6
+"64","cigna",4
+"65","cim",3
+"66","cisco",38
+"67","citadel",1
+"68","citi",6
+"69","citigroup",1
+"70","citizen's bank",1
+"71","clear capital",1
+"72","co-op rockwell",2
+"73","cobalt automotive",2
+"74","coding dojo",2
+"75","columbia university",5
+"76","comcast",2
+"77","comnet marketing",1
+"78","comso inc,",1
+"79","conagra foods",1
+"80","confidential",4
+"81","connectedio",1
+"82","consortium-iv",1
+"83","constellation energy",1
+"84","consulting java",1
+"85","contactmydoc description:",1
+"86","contata solutions",2
+"87","context relevant",1
+"88","cornell university",2
+"89","costume designer",2
+"90","coverity",1
+"91","cox media",2
+"92","creative aero",1
+"93","credit suisse,",1
+"94","credorax group",1
+"95","crowdnetic corporation",1
+"96","csc",5
+"97","cugi eboard",1
+"98","current job",1
+"99","cvs caremark",2
+"100","cvs health",1
+"101","cypress health",1
+"102","daegis inc",1
+"103","database security",1
+"104","deka reasearch",1
+"105","dell",10
+"106","deloitte",2
+"107","delta air",2
+"108","demere.co",1
+"109","dental web",1
+"110","department of computer",6
+"111","department of health",3
+"112","deutsche bank",3
+"113","devops engineer",6
+"114","directv",1
+"115","disney",2
+"116","djangostars",1
+"117","doctor lan",1
+"118","dolby laboratories",1
+"119","dropbox",1
+"120","dsw inc",1
+"121","duke energy",1
+"122","duke mathematics",1
+"123","dupont pioneer",1
+"124","dynamic dreamz",1
+"125","e-ring software",1
+"126","ecoing15",1
+"127","ecompany store",1
+"128","economic, financial,",1
+"129","ecovent",1
+"130","edmc",1
+"131","educational software",2
+"132","edward jones",4
+"133","efocus-webs project",2
+"134","einstein",3
+"135","ejada ltd",1
+"136","elekta inc.",1
+"137","emagin",2
+"138","emc",6
+"139","engineer bomgar",1
+"140","engineer narra",1
+"141","entre computer",2
+"142","epam empathy",2
+"143","epic games",1
+"144","epicor software",1
+"145","ericsson",2
+"146","esri",10
+"147","ettain group",1
+"148","events management",1
+"149","exablox",1
+"150","exb solutions",1
+"151","expedia",1
+"152","expert solution",1
+"153","fca",1
+"154","federal institute",2
+"155","federal reserve",3
+"156","firestone diversified",1
+"157","firetech",1
+"158","fishers",1
+"159","florida state",1
+"160","forman mills,",1
+"161","freddie mac",2
+"162","frederic printing",1
+"163","free code",2
+"164","freelance",8
+"165","freelancing shoply",1
+"166","fresenius medical",3
+"167","function by",1
+"168","funeral services,",1
+"169","fusemachines",1
+"170","fusion alliance",1
+"171","g&g outatters",1
+"172","g2 software",1
+"173","gallant lab",1
+"174","galvanize",1
+"175","geico built",1
+"176","general dynamics",4
+"177","general electric",2
+"178","general motors",3
+"179","geographic information",1
+"180","geoprocessing team",1
+"181","global bank",1
+"182","globalfoundries manage",2
+"183","google",54
+"184","gorkana group",1
+"185","guardian",2
+"186","guide one",2
+"187","gulfstream aerospace",1
+"188","harley davidson-wi",1
+"189","hartford financial",1
+"190","hartford insurance",3
+"191","health port",2
+"192","healthways",2
+"193","hewlett packard",2
+"194","high performance",6
+"195","hisna",2
+"196","hm health",3
+"197","home depot",2
+"198","honeywell",4
+"199","hospira inc",2
+"200","hp",141
+"201","hp moonshot",1
+"202","hsbc",1
+"203","human capital",3
+"204","hyatt corporation",2
+"205","hyundai america",1
+"206","i, contract",1
+"207","ibm",79
+"208","icmarc",2
+"209","ifs r&d",1
+"210","ii ericsson",1
+"211","ii global",3
+"212","ii rart",1
+"213","ii sandisk",2
+"214","ii volcano",1
+"215","ii, qos",1
+"216","illinois institute",2
+"217","imagine it",1
+"218","imatchative startup,",2
+"219","income dynamics",1
+"220","indeed",1
+"221","independent contractor",3
+"222","infinite computer",2
+"223","infinity insurance",1
+"224","infogix, inc",1
+"225","informatique conception",2
+"226","infosense services",2
+"227","infosys",3
+"228","infosys limited",1
+"229","infosys ltd",2
+"230","ingenu",1
+"231","innova solutions,",1
+"232","innutra inc",2
+"233","insight enterprises",3
+"234","insour sys",1
+"235","institute for",1
+"236","institute of insight,",1
+"237","instructor and",3
+"238","intel",91
+"239","interactive communications",3
+"240","intercontinental hotels",1
+"241","intermountain health",1
+"242","intersect group",1
+"243","intersections, chantilly,",1
+"244","intersog software",1
+"245","intwine connection,",1
+"246","j.crew group,",1
+"247","j5 systems",1
+"248","java crew",1
+"249","jlg industries",1
+"250","john deere",4
+"251","johnson controls,",1
+"252","jp morgan",6
+"253","jpmorgan chase",4
+"254","jpmorganchase",2
+"255","kaarya llc",1
+"256","kaiser permanente",2
+"257","key bank",3
+"258","keyingredient",1
+"259","kfg",2
+"260","khodro azma",1
+"261","l.l.bean",1
+"262","la colonia",1
+"263","lamar university",1
+"264","latentview analytics",2
+"265","leap frog",1
+"266","learning experience",1
+"267","leidos",1
+"268","lenderlive responsible",1
+"269","lendingtree",1
+"270","lexmark",2
+"271","liberty mutual",1
+"272","liberty mutual,",1
+"273","life lock",1
+"274","lincoln financial",3
+"275","linux professional",2
+"276","lithium",1
+"277","lithiumstart, inc",2
+"278","lmg capital",2
+"279","lockheed martin",2
+"280","los alamos",1
+"281","lowe's",1
+"282","lowes",1
+"283","luzene",1
+"284","macy's systems",2
+"285","map communications",1
+"286","market day",1
+"287","marketsharp software",1
+"288","marys enterprise",1
+"289","maxlinear, inc",2
+"290","mayo clinic",2
+"291","mckesson",1
+"292","mckesson duties:",2
+"293","mcm services",2
+"294","mediamorph",1
+"295","medios e",1
+"296","mercury",6
+"297","merrill lynch,",1
+"298","method to",7
+"299","mexicoder, inc",1
+"300","mformation software",1
+"301","miami rebel",1
+"302","michigan state",2
+"303","microsoft",99
+"304","microsoft corporation,",1
+"305","minacs",1
+"306","mindteck pte",1
+"307","minerva engineering",2
+"308","mobiquity",1
+"309","modern engineering",1
+"310","morgan stanley",3
+"311","motion welder",2
+"312","motorola",2
+"313","motorola mobility",1
+"314","mvc architecture",52
+"315","mylan",1
+"316","nanodegree program",2
+"317","national foreign",2
+"318","national institute",1
+"319","nationwide insurance",1
+"320","nativo",1
+"321","netflix",2
+"322","newscred",2
+"323","nexidia",1
+"324","next phase",1
+"325","nextern, inc",2
+"326","nexxtep",1
+"327","nike",1
+"328","nokia",3
+"329","nokia siemens",1
+"330","nordstrom",1
+"331","northeastern university",3
+"332","northern arizona",3
+"333","northern natural",1
+"334","northrop grumman",1
+"335","northwestern polytechnic",1
+"336","nuance",3
+"337","nwa media",1
+"338","ny dep",1
+"339","office of attorney",1
+"340","onondaga county",1
+"341","opus inspection",1
+"342","oracle",78
+"343","orane consulting",1
+"344","otak, inc",1
+"345","otsuka us",1
+"346","otter products",1
+"347","outerwall inc",1
+"348","owen software",1
+"349","oxagile",1
+"350","pacific gas",3
+"351","pagefair limited",1
+"352","pakedge device",1
+"353","paratus llc",1
+"354","partners healthcare",2
+"355","pathfinder development",1
+"356","pathfinder energy",1
+"357","paychex",2
+"358","paychex inc",1
+"359","payless shoesource",2
+"360","pfizer",3
+"361","phelps dodge",1
+"362","pieriandx",2
+"363","pinnacle group",1
+"364","pivotal labs",2
+"365","pnc bank",2
+"366","ponomusic",1
+"367","porch",1
+"368","portnov computer",1
+"369","prime international",2
+"370","private -bank",1
+"371","procter & gamble",1
+"372","prodea systems",1
+"373","professor department",2
+"374","providence software",2
+"375","psiber hris",1
+"376","ptc",4
+"377","pure storage",4
+"378","pyrotech engineers",1
+"379","qa lead",4
+"380","qa101 consulting",1
+"381","qilu security",1
+"382","qualcomm",5
+"383","qualcomm connected",1
+"384","quantum spatial",1
+"385","quicken loans",1
+"386","quixey",2
+"387","rackspace us",1
+"388","raytheon",1
+"389","razorfish health",1
+"390","rbc financial",1
+"391","red hat",13
+"392","regenstrief institute,",1
+"393","reingold, inc.",1
+"394","repiscore, inc",1
+"395","replicon software",1
+"396","republic services",2
+"397","reservoir labs",1
+"398","revolveclothing",2
+"399","rioseo",1
+"400","rj lee",1
+"401","rochester institute",2
+"402","rocket fuel",2
+"403","rockwell automation",3
+"404","rolls-royce",1
+"405","royal bank",1
+"406","rr donnelley",1
+"407","rutgers university,",4
+"408","s3 group ",1
+"409","safeguard properties,",1
+"410","salesfusion inc",1
+"411","samsung electronics",2
+"412","samsung research",2
+"413","san antonio",9
+"414","sap bi",1
+"415","sap labs",1
+"416","schneider electric",1
+"417","scholastic inc",1
+"418","school of education",1
+"419","sciquest",2
+"420","seagate llc",1
+"421","searchforce inc.",2
+"422","selective insurance",1
+"423","self-employed",11
+"424","self employed",8
+"425","sephora inc",1
+"426","service control",1
+"427","shapiro +",1
+"428","sharp laboratories",1
+"429","shoppable",1
+"430","silvics solutions",1
+"431","simpleray",1
+"432","sing -post",1
+"433","sirius computer",1
+"434","sirius xm",1
+"435","six stars",1
+"436","sky touch",2
+"437","sonata services",1
+"438","soochow securities",1
+"439","south eugene",1
+"440","southwest airlines,",1
+"441","sp richards",2
+"442","spa instruments",1
+"443","sparefoot",2
+"444","speed commerce",1
+"445","spirent",2
+"446","spoton.com",1
+"447","sprint nextel",1
+"448","sr freddie",1
+"449","sra international,",1
+"450","st. edward's",1
+"451","stanfield systems",1
+"452","stanford institute",2
+"453","stanford university",6
+"454","stanley black",2
+"455","state of michigan",2
+"456","state of north",1
+"457","state of wisconsin",1
+"458","state street",5
+"459","statestreet",1
+"460","stevens institute",1
+"461","stirplate",1
+"462","strategic support",1
+"463","sun edison",1
+"464","suntrust bank",1
+"465","supercare",1
+"466","supervalu inc",2
+"467","supreme court",1
+"468","surgical tools",1
+"469","symbiont",1
+"470","synnex",1
+"471","syntel",1
+"472","sysomos inc",2
+"473","u.s securities",1
+"474","u.s. naval",2
+"475","ucsb earth",2
+"476","ucsf sabes",1
+"477","unc charlotte",2
+"478","unisys",2
+"479","united guaranty",3
+"480","united health",2
+"481","united services",1
+"482","unitedhealth group",1
+"483","univ. of california",1
+"484","university of cambridge,",2
+"485","university of central",4
+"486","university of colorado",2
+"487","university of florida",3
+"488","university of houston",1
+"489","university of houston,",2
+"490","university of iowa",4
+"491","university of maryland",2
+"492","university of massachusetts",2
+"493","university of michigan",4
+"494","university of montreal",1
+"495","university of north",3
+"496","university of pittsburgh",2
+"497","university of rhode",2
+"498","university of utah",1
+"499","university of washington",2
+"500","upmc company",2
+"501","uprev",1
+"502","upward automation",1
+"503","us army",3
+"504","us securities",1
+"505","using roundup.",2
+"506","v5 systems",2
+"507","va richmond",1
+"508","value options",1
+"509","vanco payment",1
+"510","vanderbilt university",1
+"511","velexi corporation",1
+"512","ventyx",1
+"513","verdante bioenergy",1
+"514","verisage",1
+"515","verizon",26
+"516","versify solutions",1
+"517","visa",10
+"518","visa inc",1
+"519","visteon corporation",1
+"520","walmart",3
+"521","walt disney",2
+"522","waston innovations",2
+"523","wayne state",2
+"524","webfaction",1
+"525","website pipeline",1
+"526","weehawken, nj",2
+"527","welcome aboard",2
+"528","wellington management",1
+"529","wells fargo",19
+"530","wells fargo,",2
+"531","wesgrow software",1
+"532","western digital",4
+"533","wicked analytics",2
+"534","wilbur ellis",1
+"535","wilmington, de",3
+"536","wipro accuen",2
+"537","wolters kluwer",2
+"538","worcester polytechnic",1
+"539","worker marshall",1
+"540","worldquant, llc.",1
+"541","www.maslennikov.us",1
+"542","www.x-cd.com completely",1
+"543","wyncode academy",2
+"544","xerox corporation",1
+"545","xiquant inc",2
+"546","xlhybrids",1
+"547","xmx solutions",1
+"548","you-gene",1
+"549","zappos, nv",2
+"550","zappos.com, inc",1
+"551","zcrowd, inc",2
+"552","zenefits",1
+"553",NA,177
